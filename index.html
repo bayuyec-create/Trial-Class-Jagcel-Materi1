@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi: Fungsi LOOKUP Excel</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Gaya Asli Anda */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Latar belakang default */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            /* Tinggi disesuaikan agar pas di slide */
+            height: 60vh; 
+            max-height: 500px;
+            padding: 1rem;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 50vh;
+                max-height: 400px;
+            }
+        }
+
+        /* === [START] CSS UNTUK EFEK PRESENTASI === */
+        html {
+            /* Kunci: Mengaktifkan scroll snap vertikal */
+            scroll-snap-type: y mandatory; 
+        }
+
+        /* * Mendefinisikan setiap 'Slide'
+         * Ini adalah pengganti dari <div class="container...">
+        */
+        .slide {
+            width: 100%;
+            height: 100vh; /* Setiap slide = 1 tinggi layar */
+            scroll-snap-align: start; /* Mengunci di bagian atas slide */
+            
+            /* Tata letak untuk menengahkan konten */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            /* Padding untuk konten di dalam slide */
+            padding: 2rem;
+            box-sizing: border-box;
+            
+            /* Memastikan konten tidak 'tumpah' */
+            overflow-y: auto;
+        }
+
+        /* Variasi warna untuk slide */
+        .slide-abu { background-color: #f4f7f6; }
+        .slide-putih { background-color: #ffffff; }
+        .slide-biru-tua { background-color: #0F2952; color: white; }
+        
+        /* === [END] CSS UNTUK EFEK PRESENTASI === */
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <section class="slide slide-abu text-center">
+        <div class="max-w-3xl mx-auto">
+            <header>
+                <h1 class="text-4xl md:text-5xl font-bold" style="color: #F94144;">Mengenal Fungsi XLOOKUP di Microsoft Excel!</h1>
+                <p class="text-xl text-gray-600 mt-3">Selamat datang, analisis data menggunakan Fungsi XLOOKUP untuk pencarian data.</p>
+            </header>
+            <p class="text-lg mt-12 animate-bounce">👇 Scroll ke bawah untuk mulai 👇</p>
+        </div>
+    </section>
+
+    <section class="slide slide-putih">
+        <div class="max-w-3xl mx-auto w-full">
+            <h2 class="text-3xl font-bold mb-4" style="color: #F3722C;"># Apa Itu Fungsi (Formula) di Excel?</h2>
+            <p class="text-gray-700 mb-6">Bayangkan Excel sebagai koki. Fungsi (formula) adalah resep yang Anda berikan padanya. Secara sederhana, <strong class="font-semibold">Fungsi adalah perintah siap pakai untuk melakukan perhitungan atau tugas tertentu.</strong></p>
+            
+            <h3 class="text-xl font-semibold mb-4 text-center">Struktur Dasar Sebuah Fungsi</h3>
+            <div class="flex flex-col sm:flex-row justify-center items-center flex-wrap shadow-inner rounded-lg p-4 bg-gray-50">
+                <div class="p-4 text-2xl font-mono font-bold rounded-l-lg" style="background-color: #F94144; color: white;">=</div>
+                <div class="p-4 text-2xl font-mono font-bold" style="background-color: #F8961E; color: white;">NAMA_FUNGSI</div>
+                <div class="p-4 text-2xl font-mono font-bold" style="background-color: #F9C74F; color: #333;">(</div>
+                <div class="p-4 text-2xl font-mono font-bold" style="background-color: #90BE6D; color: white;">Argumen1; Argumen2</div>
+                <div class="p-4 text-2xl font-mono font-bold" style="background-color: #F9C74F; color: #333;">)</div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mt-6 text-center">
+                 <div class="p-3">
+                    <span class="text-2xl font-mono font-bold p-2 rounded" style="background-color: #F94144; color: white;">=</span>
+                    <p class="mt-2 text-sm text-gray-600">"Perintah dimulai!"</p>
+                </div>
+                <div class="p-3">
+                    <span class="text-lg font-mono font-bold p-2 rounded" style="background-color: #F8961E; color: white;">NAMA</span>
+                    <p class="mt-2 text-sm text-gray-600">"Nama Resepnya."</p>
+                </div>
+                <div class="p-3">
+                    <span class="text-2xl font-mono font-bold p-2 rounded" style="background-color: #F9C74F; color: #333;">( )</span>
+                    <p class="mt-2 text-sm text-gray-600">"Wadah Bahan."</p>
+                </div>
+                <div class="p-3 sm:col-span-2 md:col-span-2">
+                    <span class="text-lg font-mono font-bold p-2 rounded" style="background-color: #90BE6D; color: white;">Argumen</span>
+                    <p class="mt-2 text-sm text-gray-600">"Bahan-bahannya."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide slide-abu">
+        <div class="max-w-6xl mx-auto w-full"> 
+            
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center text-indigo-800">
+                🔬 Anatomi Sebuah Fungsi
+            </h2>
+            <p class="text-center text-gray-600 text-lg mb-8">
+                Mari kita bedah fungsi 
+                <code class="font-mono bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded-md">`=SUM(A1:A10)`</code> 
+                sebagai contoh.
+            </p>
+            
+            <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4 p-4 md:p-6 rounded-xl bg-gray-50 border overflow-x-auto mb-10">
+                <div class="flex-shrink-0 border-2 border-[#009000] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-green-500 shadow-sm">=</div>
+                <div class="flex-shrink-0 border-2 border-[#000000] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-black-500 shadow-sm">SUM</div>
+                <div class="flex-shrink-0 border-2 border-[#0000f4] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-blue-700 shadow-sm">(</div>
+                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">A1:A10</div>
+                <div class="flex-shrink-0 border-2 border-[#0000f4] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-blue-700 shadow-sm">)</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-sans">
+                
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-green-500">
+                    <div class="flex justify-center mb-6">
+                        <div class="border-2 border-green-500 text-red-500 rounded-xl px-6 py-2 text-3xl font-semibold font-mono">=</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">1. Tanda Sama Dengan</h3>
+                    <p class="text-gray-600 text-center text-base">WAJIB diawali dengan tanda ini untuk memberitahu Excel bahwa Anda akan memulai perhitungan/fungsi.</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#000000]">
+                    <div class="flex justify-center mb-6">
+                        <div class="border-2 border-[#000000] text-[#000000] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">SUM</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">2. Nama Fungsi</h3>
+                    <p class="text-gray-600 text-center text-base">Ini adalah "kata perintah" spesifik seperti 'SUM', 'AVERAGE', atau 'IF'.</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#0000f4]">
+                    <div class="flex justify-center mb-6">
+                        <div class="border-2 border-[#0000f4] text-[#0000f4] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">( )</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">3. Tanda Kurung</h3>
+                    <p class="text-gray-600 text-center text-base">"Wadah" yang membungkus semua argumen. Wajib ada, bahkan jika fungsinya tidak butuh argumen.</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#b22222]">
+                    <div class="flex justify-center mb-6">
+                        <div class="border-2 border-[#b22222] text-[#b22222] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">A1:A10</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">4. Argumen</h3>
+                    <p class="text-gray-600 text-center text-base">"Bahan baku" atau input. Bisa berupa sel (A1), rentang (A1:A10), teks ("Lulus"), atau angka (10).</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <section id="foundation" class="slide slide-putih">
+        <div class="max-w-4xl mx-auto w-full">
+            <h2 class="text-3xl font-bold text-brand-dark mb-4" style="color: #F3722C;"># Pondasi: Apa Itu Fungsi "LOOKUP"?</h2>
+            <p class="text-lg text-brand-dark/90 mb-6">Pada dasarnya, ini adalah alat untuk menemukan sesuatu. Bayangkan Anda memiliki buku telepon. Anda ingin mencari "Budi" (nilai dicari) di daftar nama (kolom pencarian) untuk mendapatkan nomor teleponnya (nilai kembalian).</p>
+    
+            <div class="bg-brand-light p-6 rounded-lg flex flex-col md:flex-row items-center justify-center gap-6" style="background-color: #f3fcf9;">
+                <div class="text-center">
+                    <span class="text-lg font-semibold">Cari:</span>
+                    <div class="font-mono p-2 rounded mt-1 shadow-inner" style="background-color: #fffbeb;">"Budi"</div>
+                </div>
+                <div class="text-4xl hidden md:block" style="color: #43AA8B;">&rarr;</div>
+                <div class="text-4xl md:hidden" style="color: #43AA8B;">&darr;</div>
+                <div class="w-full md:w-auto shadow-lg">
+                    <div class="grid grid-cols-2 bg-white rounded-lg overflow-hidden border border-gray-300">
+                        <div class="font-bold p-3 bg-gray-200 border-b border-r">Nama</div>
+                        <div class="font-bold p-3 bg-gray-200 border-b">Telepon</div>
+                        <div class="p-3 border-b border-r">Ana</div>
+                        <div class="p-3 border-b">555-1234</div>
+                        <div class="p-3 border-b border-r" style="background-color: #fffbeb;">Budi</div>
+                        <div class="p-3 border-b" style="background-color: #fffbeb;">555-5678</div>
+                        <div class="p-3 border-r">Caca</div>
+                        <div class="p-3">555-9012</div>
+                    </div>
+                </div>
+                <div class="text-4xl hidden md:block" style="color: #43AA8B;">&rarr;</div>
+                <div class="text-4xl md:hidden" style="color: #43AA8B;">&darr;</div>
+                <div class="text-center">
+                    <span class="text-lg font-semibold">Hasil:</span>
+                    <div class="font-mono p-2 rounded mt-1 shadow-inner" style="background-color: #e0f2f1;">"555-5678"</div>
+                </div>
+            </div>
+            <p class="text-lg text-brand-dark/90 mt-6 text-center">Itulah tugas utama fungsi LOOKUP. Yang paling umum adalah <code class="bg-gray-200 p-1 rounded font-mono text-base">VLOOKUP</code>.</p>
+        </div>
+    </section>
+    
+    <section class="slide slide-abu">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-3xl font-bold mb-4" style="color: #F3722C;"># Mengapa Fungsi Pencarian Sangat Penting?</h2>
+            <p class="text-gray-700 mb-6 text-center">Mencari 1 data di 10.000 baris? Mustahil dengan mata. Ini adalah cara mudah untuk <strong class="font-semibold">menemukan data</strong> dan <strong class="font-semibold">mengambil informasi terkait</strong> dengannya.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+                <div class="p-6 text-center rounded-lg" style="background-color: #ceffbc;">
+                    <span class="text-5xl">⏱️</span>
+                    <h3 class="text-xl font-semibold mt-4" style="color: #F94144;">Menghemat Waktu</h3>
+                    <p class="text-gray-600 mt-2 text-sm">Menemukan data dalam hitungan detik, bukan jam.</p>
+                </div>
+                <div class="p-6 text-center rounded-lg" style="background-color: #fffbeb;">
+                    <span class="text-5xl">🎯</span>
+                    <h3 class="text-xl font-semibold mt-4" style="color: #F8961E;">Akurasi Tinggi</h3>
+                    <p class="text-gray-600 mt-2 text-sm">Menghilangkan kesalahan manusia (salah salin-tempel).</p>
+                </div>
+                <div class="p-6 text-center rounded-lg" style="background-color: #eadfde;">
+                    <span class="text-5xl">🔗</span>
+                    <h3 class="text-xl font-semibold mt-4" style="color: #90BE6D;">Menggabungkan Data</h3>
+                    <p class="text-gray-600 mt-2 text-sm">Menarik data dari tabel master ke tabel invoice otomatis.</p>
+
+                </div>
+                <div class="p-6 text-center rounded-lg" style="background-color: #f2d4e9;">
+                    <span class="text-5xl">📈</span>
+                    <h3 class="text-xl font-semibold mt-4" style="color: #43AA8B;">Otomatisasi Laporan</h3>
+                    <p class="text-gray-600 mt-2 text-sm">Membuat laporan penjualan dinamis yang ter-update sendiri.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide slide-putih">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-3xl font-bold text-center mb-6" style="color: #F3722C;"># Perbandingan 4 Fungsi Pencarian Utama</h2>
+            <p class="text-gray-700 text-center mb-8 max-w-3xl mx-auto">`VLOOKUP` adalah yang klasik, `XLOOKUP` adalah masa depan. Grafik ini membandingkan fleksibilitas dan kemudahan penggunaan (skala 1-10).</p>
+
+            <div class="chart-container bg-white rounded-lg shadow-md">
+                <canvas id="functionComparisonChart"></canvas>
+            </div>
+        </div>
+    </section>
+    
+    <section class="slide slide-abu">
+        <div class="max-w-6xl mx-auto w-full font-sans">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-center text-gray-800">
+                        Kelemahan Klasik: VLOOKUP
+                    </h3>
+                    <p class="text-gray-600 text-base leading-relaxed mb-6">
+                        Mencari data di <strong class="font-semibold text-gray-800">kolom pertama</strong> dan mengambil data di sebelah <strong class="font-semibold text-gray-800">kanannya</strong>. Ia tidak bisa "melihat ke kiri".
+                    </p>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 font-mono text-sm mb-6">
+                        <div class="grid grid-cols-3 gap-2 font-bold border-b border-gray-200 pb-2 mb-2 text-gray-700">
+                            <div>A (ID)</div> <div>B (Produk)</div> <div>C (Harga)</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-gray-800">
+                            <div>101</div> <div>Apel</div> <div>5000</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-gray-800">
+                            <div>102</div> <div>Jeruk</div> <div>7000</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-[#EBF8F2] border border-[#BDE7D3]">
+                        <p class="font-semibold flex items-center text-gray-800"><span class="text-green-500 text-2xl mr-2">✅</span> Cari 'Jeruk' (B), ambil Harga (C)</p>
+                        <p class="font-mono text-xs ml-8 text-gray-600"><span class="text-blue-600">=VLOOKUP("Jeruk", B:C, 2, FALSE)</span> ➡️ <span class="text-green-700">7000</span></p>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-[#FEE4E3] border border-[#FBCAC9]">
+                        <p class="font-semibold flex items-center text-gray-800"><span class="text-red-500 text-2xl mr-2">❌</span> Cari 'Jeruk' (B), ambil ID (A)</p>
+                        <p class="font-mono text-xs ml-8 text-gray-600"><span class="text-blue-600">=VLOOKUP(...)</span> ⬅️ <span class="text-red-700 font-bold">GAGAL! (#N/A)</span></p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-center text-gray-800">
+                        Kekuatan Modern: XLOOKUP
+                    </h3>
+                    <p class="text-gray-600 text-base leading-relaxed mb-6">
+                        Jauh lebih fleksibel. Anda memberinya <strong class="font-semibold text-gray-800">kolom pencarian</strong> dan <strong class="font-semibold text-gray-800">kolom hasil</strong> secara terpisah.
+                    </p>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 font-mono text-sm mb-6">
+                        <div class="grid grid-cols-3 gap-2 font-bold border-b border-gray-200 pb-2 mb-2 text-gray-700">
+                            <div>A (ID)</div> <div>B (Produk)</div> <div>C (Harga)</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-gray-800">
+                            <div>101</div> <div>Apel</div> <div>5000</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-gray-800">
+                            <div>102</div> <div>Jeruk</div> <div>7000</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-[#EBF8F2] border border-[#BDE7D3]">
+                        <p class="font-semibold flex items-center text-gray-800"><span class="text-green-500 text-2xl mr-2">✅</span> Cari 'Jeruk' (B), ambil Harga (C)</p>
+                        <p class="font-mono text-xs ml-8 text-gray-600"><span class="text-blue-600">=XLOOKUP("Jeruk", B:B, C:C)</span> ➡️ <span class="text-green-700">7000</span></p>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-[#EBF8F2] border border-[#BDE7D3]">
+                        <p class="font-semibold flex items-center text-gray-800"><span class="text-green-500 text-2xl mr-2">✅</span> Cari 'Jeruk' (B), ambil ID (A)</p>
+                        <p class="font-mono text-xs ml-8 text-gray-600"><span class="text-blue-600">=XLOOKUP("Jeruk", B:B, A:A)</span> ⬅️ <span class="text-green-700">102</span></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="slide slide-biru-tua">
+        <div class="max-w-4xl mx-auto w-full font-sans text-center">
+            
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#38BDF8]">
+                # Bintangnya: XLOOKUP (Pencarian Modern)
+            </h2>
+            <p class="text-lg md:text-xl leading-relaxed text-gray-100 mb-8">
+                Microsoft akhirnya membuat satu fungsi super yang menyelesaikan SEMUA masalah ini.
+            <code class="bg-gray-100 text-blue-900 font-semibold font-mono px-2 py-0.5 rounded text-base mx-1">XLOOKUP</code>
+                adalah pengganti modern untuk
+            <code class="bg-gray-100 text-blue-900 font-semibold font-mono px-2 py-0.5 rounded text-base mx-1">VLOOKUP</code>,
+            <code class="bg-gray-100 text-blue-900 font-semibold font-mono px-2 py-0.5 rounded text-base mx-1">HLOOKUP</code>,
+                dan bahkan
+            <code class="bg-gray-100 text-blue-900 font-semibold font-mono px-2 py-0.5 rounded text-base mx-1">INDEX(MATCH)</code>.
+            </p>
+            <h3 class="text-xl md:text-2xl font-bold text-white mb-4">
+                 Sintaks Dasarnya Jauh Lebih Sederhana:
+            </h3>
+            <div class="bg-[#081428] p-6 rounded-lg shadow-inner border border-blue-900/50">
+                <code class="block text-[#D9F99D] text-lg md:text-xl font-mono break-all">
+                <span class="text-[#38BDF8]">=</span>XLOOKUP(nilai_dicari, lookup_array, return_array)
+                </code>
+            </div>
+            
+            <hr class="my-10 border-blue-800">
+
+            <p class="text-xl font-bold text-white">Gimana ada pertanyaan?</p>
+            <p class="text-gray-300 mt-2 mb-8">Next bahas rumus!!!.</p>
+            
+            <a href="httpsa://gemini.google.com/app/a869674cfeba7d21" 
+               target="_blank" 
+               class="inline-block bg-[#118AB2] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#073B4C] transition-colors duration-200 text-lg">
+                Next Rumus XLOOKUP
+            </a>
+            
+            <footer class="text-center mt-12 text-gray-400 text-sm">
+                <p>Infografis ini dibuat untuk membantu Anda memulai perjalanan Excel. Selamat belajar!</p>
+            </footer>
+
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek apakah elemen canvas ada di dokumen
+            const canvasElement = document.getElementById('functionComparisonChart');
+            if (canvasElement) {
+                const functionData = {
+                    labels: ['VLOOKUP', 'HLOOKUP', 'INDEX-MATCH', 'XLOOKUP'],
+                    datasets: [
+                        {
+                            label: 'Fleksibilitas (Skala 1-10)',
+                            data: [3, 3, 9, 10],
+                            backgroundColor: '#43AA8B',
+                            borderColor: '#43AA8B',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Kemudahan Penggunaan (Skala 1-10)',
+                            data: [6, 5, 4, 9],
+                            backgroundColor: '#F9C74F',
+                            borderColor: '#F9C74F',
+                            borderWidth: 1
+                        }
+                    ]
+                };
+
+                const functionConfig = {
+                    type: 'bar',
+                    data: functionData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 10,
+                                ticks: { color: '#577590' },
+                                grid: { color: '#e0e0e0' }
+                            },
+                            x: {
+                                ticks: { color: '#577590' },
+                                grid: { display: false }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: { color: '#333' }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        const item = tooltipItems[0];
+                                        let label = item.chart.data.labels[item.dataIndex];
+                                        return Array.isArray(label) ? label.join(' ') : label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+
+                const ctx = canvasElement.getContext('2d');
+                new Chart(ctx, functionConfig);
+            }
+        });
+    </script>
+
+</body>
+</html>
