@@ -44,7 +44,8 @@
         */
         .slide {
             width: 100%;
-            height: 100vh; /* Setiap slide = 1 tinggi layar */
+            /* [PERUBAHAN] Mengganti height ke min-height agar konten panjang tidak terpotong */
+            min-height: 100vh; /* Minimal 1 tinggi layar, bisa lebih */
             scroll-snap-align: start; /* Mengunci di bagian atas slide */
             
             /* Tata letak untuk menengahkan konten */
@@ -57,8 +58,8 @@
             padding: 2rem;
             box-sizing: border-box;
             
-            /* Memastikan konten tidak 'tumpah' */
-            overflow-y: auto;
+            /* [DIHAPUS] Tidak perlu overflow-y internal jika slide bisa memanjang */
+            /* overflow-y: auto; */
         }
 
         /* Variasi warna untuk slide */
@@ -91,26 +92,33 @@
                 <div class="p-4 text-2xl font-mono font-bold rounded-l-lg" style="background-color: #F94144; color: white;">=</div>
                 <div class="p-4 text-2xl font-mono font-bold" style="background-color: #F8961E; color: white;">NAMA_FUNGSI</div>
                 <div class="p-4 text-2xl font-mono font-bold" style="background-color: #F9C74F; color: #333;">(</div>
-                <div class="p-4 text-2xl font-mono font-bold" style="background-color: #90BE6D; color: white;">Argumen1; Argumen2</div>
-                <div class="p-4 text-2xl font-mono font-bold" style="background-color: #F9C74F; color: #333;">)</div>
+                <div class="p-4 text-2xl font-mono font-bold" style="background-color: #90BE6D; color: white;">Argumen1; Argumen2...</div>
+                <div class="p-4 text-2xl font-mono font-bold rounded-r-lg" style="background-color: #F9C74F; color: #333;">)</div>
             </div>
             
+            <!-- [PERUBAHAN DI SINI] Grid diubah dari 4 item (salah satunya span 2) menjadi 5 item -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mt-6 text-center">
                  <div class="p-3">
                     <span class="text-2xl font-mono font-bold p-2 rounded" style="background-color: #F94144; color: white;">=</span>
-                    <p class="mt-2 text-sm text-gray-600">"Perintah dimulai!"</p>
+                    <p class="mt-2 text-sm text-gray-600">"Sama dengan (Perintah dimulai!)"</p>
                 </div>
                 <div class="p-3">
-                    <span class="text-lg font-mono font-bold p-2 rounded" style="background-color: #F8961E; color: white;">NAMA</span>
+                    <span class="text-lg font-mono font-bold p-2 rounded" style="background-color: #F8961E; color: white;">NAMA_FUNGSI</span>
                     <p class="mt-2 text-sm text-gray-600">"Nama Resepnya."</p>
                 </div>
                 <div class="p-3">
                     <span class="text-2xl font-mono font-bold p-2 rounded" style="background-color: #F9C74F; color: #333;">( )</span>
                     <p class="mt-2 text-sm text-gray-600">"Wadah Bahan."</p>
                 </div>
-                <div class="p-3 sm:col-span-2 md:col-span-2">
+                <!-- [DIUBAH] Menghilangkan col-span -->
+                <div class="p-3">
                     <span class="text-lg font-mono font-bold p-2 rounded" style="background-color: #90BE6D; color: white;">Argumen</span>
                     <p class="mt-2 text-sm text-gray-600">"Bahan-bahannya."</p>
+                </div>
+                <!-- [ITEM BARU] Ditambahkan untuk menjelaskan pemisah -->
+                <div class="p-3">
+                    <span class="text-2xl font-mono font-bold p-2 rounded" style="background-color: #43AA8B; color: white;">;</span>
+                    <p class="mt-2 text-sm text-gray-600">"Pemisah Argumen" ( ; bisa juga , )</p>
                 </div>
             </div>
         </div>
@@ -124,19 +132,25 @@
             </h2>
             <p class="text-center text-gray-600 text-lg mb-8">
                 Mari kita bedah fungsi 
-                <code class="font-mono bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded-md">`=SUM(A1:A10)`</code> 
+                <code class="font-mono bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded-md">`=IF(A1>10; "Lulus"; "Gagal")`</code> 
                 sebagai contoh.
             </p>
             
+            <!-- [PERUBAHAN DI SINI] Visual diganti ke IF -->
             <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4 p-4 md:p-6 rounded-xl bg-gray-50 border overflow-x-auto mb-10">
                 <div class="flex-shrink-0 border-2 border-[#009000] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-green-500 shadow-sm">=</div>
-                <div class="flex-shrink-0 border-2 border-[#000000] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-black-500 shadow-sm">SUM</div>
+                <div class="flex-shrink-0 border-2 border-[#000000] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-black-500 shadow-sm">IF</div>
                 <div class="flex-shrink-0 border-2 border-[#0000f4] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-blue-700 shadow-sm">(</div>
-                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">A1:A10</div>
+                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">A1>10</div>
+                <div class="flex-shrink-0 border-2 border-[#43AA8B] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#43AA8B] shadow-sm">;</div>
+                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">"Lulus"</div>
+                <div class="flex-shrink-0 border-2 border-[#43AA8B] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#43AA8B] shadow-sm">;</div>
+                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">"Gagal"</div>
                 <div class="flex-shrink-0 border-2 border-[#0000f4] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-blue-700 shadow-sm">)</div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-sans">
+            <!-- [PERUBAHAN DI SINI] Grid diubah ke 5 kolom -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 font-sans">
                 
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-green-500">
                     <div class="flex justify-center mb-6">
@@ -148,10 +162,12 @@
 
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#000000]">
                     <div class="flex justify-center mb-6">
-                        <div class="border-2 border-[#000000] text-[#000000] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">SUM</div>
+                        <!-- [PERUBAHAN DI SINI] Ikon diganti ke IF -->
+                        <div class="border-2 border-[#000000] text-[#000000] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">IF</div>
                     </div>
                     <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">2. Nama Fungsi</h3>
-                    <p class="text-gray-600 text-center text-base">Ini adalah "kata perintah" spesifik seperti 'SUM', 'AVERAGE', atau 'IF'.</p>
+                    <!-- [PERUBAHAN DI SINI] Teks contoh diubah -->
+                    <p class="text-gray-600 text-center text-base">Ini adalah "kata perintah" spesifik seperti 'IF', 'SUM', atau 'AVERAGE'.</p>
                 </div>
 
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#0000f4]">
@@ -164,10 +180,21 @@
 
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#b22222]">
                     <div class="flex justify-center mb-6">
-                        <div class="border-2 border-[#b22222] text-[#b22222] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">A1:A10</div>
+                        <!-- [PERUBAHAN DI SINI] Ikon diganti ke A1>10 -->
+                        <div class="border-2 border-[#b22222] text-[#b22222] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">A1>10</div>
                     </div>
                     <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">4. Argumen</h3>
-                    <p class="text-gray-600 text-center text-base">"Bahan baku" atau input. Bisa berupa sel (A1), rentang (A1:A10), teks ("Lulus"), atau angka (10).</p>
+                    <!-- [PERUBAHAN DI SINI] Teks contoh diubah -->
+                    <p class="text-gray-600 text-center text-base">"Bahan baku" atau input. Bisa tes logika (A1>10), teks ("Lulus"), atau rentang sel (A1:A10).</p>
+                </div>
+
+                <!-- [KARTU BARU DITAMBAHKAN] -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#43AA8B]">
+                    <div class="flex justify-center mb-6">
+                        <div class="border-2 border-[#43AA8B] text-[#43AA8B] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">;</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">5. Pemisah</h3>
+                    <p class="text-gray-600 text-center text-base">Tanda ( ; atau ,) yang memisahkan satu "argumen" dengan yang lain.</p>
                 </div>
 
             </div>
@@ -209,37 +236,7 @@
         </div>
     </section>
     
-    <section class="slide slide-abu">
-        <div class="max-w-5xl mx-auto w-full">
-            <h2 class="text-3xl font-bold mb-4" style="color: #F3722C;"># Mengapa Fungsi Pencarian Sangat Penting?</h2>
-            <p class="text-gray-700 mb-6 text-center">Mencari 1 data di 10.000 baris? Mustahil dengan mata. Ini adalah cara mudah untuk <strong class="font-semibold">menemukan data</strong> dan <strong class="font-semibold">mengambil informasi terkait</strong> dengannya.</p>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-                <div class="p-6 text-center rounded-lg" style="background-color: #ceffbc;">
-                    <span class="text-5xl">⏱️</span>
-                    <h3 class="text-xl font-semibold mt-4" style="color: #F94144;">Menghemat Waktu</h3>
-                    <p class="text-gray-600 mt-2 text-sm">Menemukan data dalam hitungan detik, bukan jam.</p>
-                </div>
-                <div class="p-6 text-center rounded-lg" style="background-color: #fffbeb;">
-                    <span class="text-5xl">🎯</span>
-                    <h3 class="text-xl font-semibold mt-4" style="color: #F8961E;">Akurasi Tinggi</h3>
-                    <p class="text-gray-600 mt-2 text-sm">Menghilangkan kesalahan manusia (salah salin-tempel).</p>
-                </div>
-                <div class="p-6 text-center rounded-lg" style="background-color: #eadfde;">
-                    <span class="text-5xl">🔗</span>
-                    <h3 class="text-xl font-semibold mt-4" style="color: #90BE6D;">Menggabungkan Data</h3>
-                    <p class="text-gray-600 mt-2 text-sm">Menarik data dari tabel master ke tabel invoice otomatis.</p>
-
-                </div>
-                <div class="p-6 text-center rounded-lg" style="background-color: #f2d4e9;">
-                    <span class="text-5xl">📈</span>
-                    <h3 class="text-xl font-semibold mt-4" style="color: #43AA8B;">Otomatisasi Laporan</h3>
-                    <p class="text-gray-600 mt-2 text-sm">Membuat laporan penjualan dinamis yang ter-update sendiri.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+   
     <section class="slide slide-putih">
         <div class="max-w-5xl mx-auto w-full">
             <h2 class="text-3xl font-bold text-center mb-6" style="color: #F3722C;"># Perbandingan 4 Fungsi Pencarian Utama</h2>
@@ -312,6 +309,119 @@
                 </div>
 
             </div>
+            
+            <!-- [KONTEN BARU MULAI DI SINI] -->
+            <div class="mt-8 pt-6 border-t border-gray-300">
+                <h3 class="text-2xl font-bold text-center mb-6 text-gray-800">
+                    Bentuk - Bentuk Tabel
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Tabel Vertikal -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h4 class="text-xl font-semibold mb-3 text-indigo-700">Tabel Vertikal (untuk VLOOKUP)</h4>
+                        <p class="text-sm text-gray-600 mb-4">Data diatur dalam <strong>kolom</strong>. Anda mencari <strong>ke bawah</strong> di kolom pertama.</p>
+                        <!-- [PERUBAHAN] Menggunakan <table> agar lebih mirip Excel -->
+                        <table class="w-full table-auto border-collapse border border-gray-400 font-mono text-sm">
+                            <thead class="bg-gray-200 text-gray-700 font-bold">
+                                <tr>
+                                    <th class="border border-gray-400 p-2 text-left">A (ID)</th>
+                                    <th class="border border-gray-400 p-2 text-left">B (Produk)</th>
+                                    <th class="border border-gray-400 p-2 text-left">C (Harga)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-800">
+                                <tr>
+                                    <td class="border border-gray-400 p-2">101</td>
+                                    <td class="border border-gray-400 p-2">Apel</td>
+                                    <td class="border border-gray-400 p-2">5000</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-400 p-2">102</td>
+                                    <td class="border border-gray-400 p-2">Jeruk</td>
+                                    <td class="border border-gray-400 p-2">7000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tabel Horizontal -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h4 class="text-xl font-semibold mb-3 text-indigo-700">Tabel Horizontal (untuk HLOOKUP)</h4>
+                        <p class="text-sm text-gray-600 mb-4">Data diatur dalam <strong>baris</strong>. Anda mencari <strong>ke kanan</strong> di baris pertama.</p>
+                        <!-- [PERUBAHAN] Menggunakan <table> agar lebih mirip Excel -->
+                        <table class="w-full table-auto border-collapse border border-gray-400 font-mono text-sm">
+                            <tbody class="text-gray-800">
+                                <tr>
+                                    <th class="bg-gray-200 text-gray-700 font-bold border border-gray-400 p-2 text-left">ID</th>
+                                    <td class="border border-gray-400 p-2">101</td>
+                                    <td class="border border-gray-400 p-2">102</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-gray-200 text-gray-700 font-bold border border-gray-400 p-2 text-left">Produk</th>
+                                    <td class="border border-gray-400 p-2">Apel</td>
+                                    <td class="border border-gray-400 p-2">Jeruk</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-gray-200 text-gray-700 font-bold border border-gray-400 p-2 text-left">Harga</th>
+                                    <td class="border border-gray-400 p-2">5000</td>
+                                    <td class="border border-gray-400 p-2">7000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- [KONTEN BARU DITAMBAHKAN DI SINI] -->
+                <div class="mt-8">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h4 class="text-xl font-semibold mb-3 text-indigo-700">Tabel Gabungan</h4>
+                        <p class="text-sm text-gray-600 mb-4">Data diatur dalam <strong>baris dan kolom</strong> (matriks). Anda perlu mencari <strong>ke bawah (baris)</strong> DAN <strong>ke kanan (kolom)</strong> untuk menemukan nilai.</p>
+                        <table class="w-full table-auto border-collapse border border-gray-400 font-mono text-sm">
+                            <thead class="bg-gray-200 text-gray-700 font-bold">
+                                <tr>
+                                    <th class="border border-gray-400 p-2 text-left"></th>
+                                    <th class="border border-gray-400 p-2 text-left">Ukuran S</th>
+                                    <th class="border border-gray-400 p-2 text-left">Ukuran M</th>
+                                    <th class="border border-gray-400 p-2 text-left">Ukuran L</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-800">
+                                <tr>
+                                    <th class="bg-gray-200 text-gray-700 font-bold border border-gray-400 p-2 text-left">Baju</th>
+                                    <td class="border border-gray-400 p-2">100.000</td>
+                                    <td class="border border-gray-400 p-2">110.000</td>
+                                    <td class="border border-gray-400 p-2">120.000</td>
+                                </tr>
+                                <!-- Memberi highlight sesuai gambar -->
+                                <tr class="bg-yellow-50"> 
+                                    <th class="bg-gray-200 text-gray-700 font-bold border border-gray-400 p-2 text-left">Jaket</th>
+                                    <td class="border border-gray-400 p-2">250.000</td>
+                                    <td class="border border-gray-400 p-2 font-bold text-blue-700">260.000</td> <!-- Sel highlight -->
+                                    <td class="border border-gray-400 p-2">270.000</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-gray-200 text-gray-700 font-bold border border-gray-400 p-2 text-left">Celana</th>
+                                    <td class="border border-gray-400 p-2">150.000</td>
+                                    <td class="border border-gray-400 p-2">160.000</td>
+                                    <td class="border border-gray-400 p-2">170.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-sm text-gray-600 mt-4">Contoh: Mencari harga "Jaket" ukuran "M". Ini butuh 2 kriteria (baris & kolom). Rumus klasiknya adalah <code class="bg-gray-200 p-1 rounded font-mono text-xs">INDEX(MATCH, MATCH)</code>.</p>
+                    </div>
+                </div>
+                <!-- [KONTEN BARU SELESAI] -->
+
+                <!-- Penjelasan "Gabungan" / XLOOKUP -->
+                <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg shadow">
+                    <h4 class="text-lg font-semibold text-blue-800">Solusi "Gabungan" (XLOOKUP)</h4>
+                    <!-- [PERUBAHAN] Menambahkan info ttg 2D/INDEX(MATCH,MATCH) -->
+                    <p class="text-blue-700 mt-2">Inilah keajaibannya. <code class="bg-blue-100 text-sm font-mono p-1 rounded">XLOOKUP</code> <strong>tidak peduli</strong> dengan bentuk tabel. Ia menggantikan <code class="bg-blue-100 text-sm font-mono p-1 rounded">VLOOKUP</code> (Vertikal) dan <code class="bg-blue-100 text-sm font-mono p-1 rounded">HLOOKUP</code> (Horizontal) sekaligus. Untuk tabel 2D, XLOOKUP juga bisa dipakai secara bersarang (*nested*) untuk menggantikan <code class="bg-blue-100 text-sm font-mono p-1 rounded">INDEX(MATCH, MATCH)</code>.</p>
+                </div>
+            </div>
+            <!-- [KONTEN BARU SELESAI] -->
+
         </div>
     </section>
 
@@ -330,17 +440,7 @@
                 dan bahkan
             <code class="bg-gray-100 text-blue-900 font-semibold font-mono px-2 py-0.5 rounded text-base mx-1">INDEX(MATCH)</code>.
             </p>
-            <h3 class="text-xl md:text-2xl font-bold text-white mb-4">
-                 Sintaks Dasarnya Jauh Lebih Sederhana:
-            </h3>
-            <div class="bg-[#081428] p-6 rounded-lg shadow-inner border border-blue-900/50">
-                <code class="block text-[#D9F99D] text-lg md:text-xl font-mono break-all">
-                <span class="text-[#38BDF8]">=</span>XLOOKUP(nilai_dicari, lookup_array, return_array)
-                </code>
-            </div>
-            
-            <hr class="my-10 border-blue-800">
-
+ 
             <p class="text-xl font-bold text-white">Gimana ada pertanyaan?</p>
             <p class="text-gray-300 mt-2 mb-8">Next bahas rumus!!!.</p>
             
@@ -425,6 +525,4 @@
     </script>
 
 </body>
-
 </html>
-
