@@ -132,20 +132,20 @@
             </h2>
             <p class="text-center text-gray-600 text-lg mb-8">
                 Mari kita bedah fungsi 
-                <code class="font-mono bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded-md">`=IF(A1>10; "Lulus"; "Gagal")`</code> 
+                <code class="font-mono bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded-md">`=XLOOKUP(A2;$F$2:$F$10;$G$2:$G$10)`</code> 
                 sebagai contoh.
             </p>
             
             <!-- [PERUBAHAN DI SINI] Visual diganti ke IF -->
             <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4 p-4 md:p-6 rounded-xl bg-gray-50 border overflow-x-auto mb-10">
                 <div class="flex-shrink-0 border-2 border-[#009000] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-green-500 shadow-sm">=</div>
-                <div class="flex-shrink-0 border-2 border-[#000000] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-black-500 shadow-sm">IF</div>
+                <div class="flex-shrink-0 border-2 border-[#000000] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-black-500 shadow-sm">XLOOKUP</div>
                 <div class="flex-shrink-0 border-2 border-[#0000f4] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-blue-700 shadow-sm">(</div>
-                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">A1>10</div>
+                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">A2</div>
                 <div class="flex-shrink-0 border-2 border-[#43AA8B] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#43AA8B] shadow-sm">;</div>
-                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">"Lulus"</div>
+                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">$F$2:$F$10</div>
                 <div class="flex-shrink-0 border-2 border-[#43AA8B] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#43AA8B] shadow-sm">;</div>
-                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">"Gagal"</div>
+                <div class="flex-shrink-0 border-2 border-[#b22222] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-[#b22222] shadow-sm">$G$2:$G$10</div>
                 <div class="flex-shrink-0 border-2 border-[#0000f4] bg-white rounded-xl px-5 py-2 text-2xl font-semibold text-blue-700 shadow-sm">)</div>
             </div>
 
@@ -163,7 +163,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#000000]">
                     <div class="flex justify-center mb-6">
                         <!-- [PERUBAHAN DI SINI] Ikon diganti ke IF -->
-                        <div class="border-2 border-[#000000] text-[#000000] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">IF</div>
+                        <div class="border-2 border-[#000000] text-[#000000] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">XLOOKUP</div>
                     </div>
                     <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">2. Nama Fungsi</h3>
                     <!-- [PERUBAHAN DI SINI] Teks contoh diubah -->
@@ -181,11 +181,11 @@
                 <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-[#b22222]">
                     <div class="flex justify-center mb-6">
                         <!-- [PERUBAHAN DI SINI] Ikon diganti ke A1>10 -->
-                        <div class="border-2 border-[#b22222] text-[#b22222] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">A1>10</div>
+                        <div class="border-2 border-[#b22222] text-[#b22222] rounded-xl px-6 py-2 text-3xl font-semibold font-mono">$F$2:$F$10</div>
                     </div>
                     <h3 class="text-2xl font-semibold mb-3 text-center text-indigo-700">4. Argumen</h3>
                     <!-- [PERUBAHAN DI SINI] Teks contoh diubah -->
-                    <p class="text-gray-600 text-center text-base">"Bahan baku" atau input. Bisa tes logika (A1>10), teks ("Lulus"), atau rentang sel (A1:A10).</p>
+                    <p class="text-gray-600 text-center text-base">"Bahan baku" atau input. Bisa argumen, sel (A2) atau rentang sel (A1:A10), bedanya sel sama rentang adalah adanya ( : ).</p>
                 </div>
 
                 <!-- [KARTU BARU DITAMBAHKAN] -->
@@ -526,3 +526,4 @@
 
 </body>
 </html>
+
